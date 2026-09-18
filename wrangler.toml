@@ -15,4 +15,4 @@ binding = "ASSETS"
 [[d1_databases]]
 binding = "DB"
 database_name = "tesma-db"
-database_id = "tesma-db-id"
+database_id = "9e692809-14a5-4076-b4dd-79e1fe03bc7f"
