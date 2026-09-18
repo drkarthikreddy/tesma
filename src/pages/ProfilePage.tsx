@@ -171,7 +171,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ darkMode, onToggleDark
           </button>
         </div>
 
-        {/* Database & Cloudflare SQL Connection */}
+        {/* Database & Cloudflare Connection */}
         <div
           id="cloudflare-sql-info-row"
           onClick={() => setShowAdminModal(true)}
@@ -183,10 +183,10 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ darkMode, onToggleDark
             </div>
             <div>
               <div className="text-sm font-medium text-stone-900 dark:text-stone-100">
-                Cloudflare SQL Tables
+                Cloudflare D1 Database
               </div>
               <div className="text-xs text-stone-500 dark:text-stone-400">
-                D1 Database linked (tesma-db)
+                Cloudflare D1 SQL (tesma-db)
               </div>
             </div>
           </div>

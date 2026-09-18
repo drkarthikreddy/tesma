@@ -35,17 +35,19 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors duration-200 flex flex-col">
-      {/* Top Bar: 't' logo + 'tesma' on left, search bar in middle, cart on right */}
-      <TopBar
-        cartCount={cartCount}
-        onCartClick={() => setCartCount((prev) => (prev > 0 ? 0 : 1))}
-      />
+      {/* Top Bar: hidden when in Reels mode */}
+      {activeTab !== 'reels' && (
+        <TopBar
+          cartCount={cartCount}
+          onCartClick={() => setCartCount((prev) => (prev > 0 ? 0 : 1))}
+        />
+      )}
 
-      {/* Active Tab Page Content: Blank for Home, QBank, Reels; Settings on Profile */}
-      <main className="flex-1 w-full pb-20">
+      {/* Active Tab Page Content */}
+      <main className={activeTab === 'reels' ? 'flex-1 w-full h-[100dvh] overflow-hidden' : 'flex-1 w-full pb-20'}>
         {activeTab === 'home' && <HomePage />}
         {activeTab === 'qbank' && <QBankPage />}
-        {activeTab === 'reels' && <ReelsPage />}
+        {activeTab === 'reels' && <ReelsPage onExit={() => setActiveTab('home')} />}
         {activeTab === 'profile' && (
           <ProfilePage
             darkMode={darkMode}
@@ -54,8 +56,10 @@ export default function App() {
         )}
       </main>
 
-      {/* 4-Icon Bottom Navigation Bar in Yellow-Orange-White Theme */}
-      <BottomBar activeTab={activeTab} onTabChange={setActiveTab} />
+      {/* 4-Icon Bottom Navigation Bar: hidden in Reels mode in favor of fixed Reels bar */}
+      {activeTab !== 'reels' && (
+        <BottomBar activeTab={activeTab} onTabChange={setActiveTab} />
+      )}
     </div>
   );
 }
