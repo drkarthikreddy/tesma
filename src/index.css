@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    @apply bg-amber-50/40 text-stone-900 antialiased selection:bg-orange-500/20 selection:text-orange-900;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "tesma",
+  "description": "Medical education platform featuring QBank, Instagram-post questions, reels view, and profile settings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
