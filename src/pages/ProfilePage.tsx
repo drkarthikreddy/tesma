@@ -8,7 +8,9 @@ import {
   BookMarked,
   ChevronRight,
   GraduationCap,
+  ShieldCheck,
 } from 'lucide-react';
+import { AdminDashboardModal } from '../components/AdminDashboardModal';
 
 interface ProfilePageProps {
   darkMode: boolean;
@@ -18,6 +20,7 @@ interface ProfilePageProps {
 export const ProfilePage: React.FC<ProfilePageProps> = ({ darkMode, onToggleDarkMode }) => {
   const [notifications, setNotifications] = useState(true);
   const [autoNext, setAutoNext] = useState(false);
+  const [showAdminModal, setShowAdminModal] = useState(false);
 
   return (
     <motion.main
@@ -169,7 +172,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ darkMode, onToggleDark
         </div>
 
         {/* Database & Cloudflare SQL Connection */}
-        <div className="flex items-center justify-between p-3 rounded-xl hover:bg-stone-50 dark:hover:bg-stone-900/40 transition-colors cursor-pointer">
+        <div
+          id="cloudflare-sql-info-row"
+          onClick={() => setShowAdminModal(true)}
+          className="flex items-center justify-between p-3 rounded-xl hover:bg-stone-50 dark:hover:bg-stone-900/40 transition-colors cursor-pointer"
+        >
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg bg-amber-50 dark:bg-stone-700/70 flex items-center justify-center text-amber-600 dark:text-amber-400">
               <Database className="w-5 h-5" />
@@ -179,11 +186,36 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ darkMode, onToggleDark
                 Cloudflare SQL Tables
               </div>
               <div className="text-xs text-stone-500 dark:text-stone-400">
-                QBank backend storage configured
+                D1 Database linked (tesma-db)
               </div>
             </div>
           </div>
           <ChevronRight className="w-4 h-4 text-stone-400" />
+        </div>
+
+        {/* Admin Dashboard Access Button */}
+        <div
+          id="admin-dashboard-btn"
+          onClick={() => setShowAdminModal(true)}
+          className="flex items-center justify-between p-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/15 dark:bg-orange-500/15 dark:hover:bg-orange-500/20 border border-amber-300/60 dark:border-orange-500/30 transition-colors cursor-pointer"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-white shadow-xs">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
+                <span>Admin Dashboard</span>
+                <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-orange-500 text-white">
+                  Admin
+                </span>
+              </div>
+              <div className="text-xs text-stone-500 dark:text-stone-400">
+                Upload & manage QBank questions
+              </div>
+            </div>
+          </div>
+          <ChevronRight className="w-4 h-4 text-orange-500" />
         </div>
       </div>
 
@@ -193,6 +225,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ darkMode, onToggleDark
           tesma v1.0.0 • Medical Education Platform
         </p>
       </div>
+
+      {/* Admin Dashboard Modal */}
+      <AdminDashboardModal
+        isOpen={showAdminModal}
+        onClose={() => setShowAdminModal(false)}
+      />
     </motion.main>
   );
 };
