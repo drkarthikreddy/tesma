@@ -257,35 +257,65 @@ export const QBankPage: React.FC = () => {
         <div className="py-14 text-center space-y-3 bg-white dark:bg-stone-900 rounded-2xl p-6 border border-rose-200 dark:border-rose-900/60">
           <AlertCircle className="w-10 h-10 text-rose-500 mx-auto" />
           <h4 className="font-bold text-sm text-stone-800 dark:text-stone-200">
-            Connection Notice
+            Cloudflare D1 Connection Required
           </h4>
           <p className="text-xs text-stone-500 max-w-xs mx-auto">{error}</p>
-          <button
-            type="button"
-            onClick={loadData}
-            className="text-xs font-semibold px-4 py-2 rounded-xl bg-orange-500 text-white hover:bg-orange-600 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            Retry
-          </button>
+          <div className="flex items-center justify-center gap-2 pt-1">
+            <button
+              type="button"
+              onClick={loadData}
+              className="text-xs font-semibold px-3 py-2 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              Retry
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent('tesma:switch-tab', { detail: { tab: 'profile' } }));
+                setTimeout(() => {
+                  window.dispatchEvent(new CustomEvent('tesma:open-admin-modal'));
+                }, 50);
+              }}
+              className="text-xs font-semibold px-4 py-2 rounded-xl bg-orange-500 text-white hover:bg-orange-600 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+            >
+              <Database className="w-3.5 h-3.5" />
+              Configure D1 Credentials
+            </button>
+          </div>
         </div>
       ) : questions.length === 0 ? (
         <div className="p-8 text-center bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 space-y-3">
           <Database className="w-10 h-10 text-stone-400 mx-auto" />
           <h4 className="font-bold text-sm text-stone-800 dark:text-stone-200">
-            No Questions in Database
+            No Questions in Cloudflare D1
           </h4>
           <p className="text-xs text-stone-500 max-w-xs mx-auto">
-            Your question database currently has 0 questions. Use the Admin Dashboard in Profile to upload question batches.
+            Your Cloudflare D1 SQL database currently has 0 questions. Open the Admin Console to seed medical curriculum questions or upload batches.
           </p>
-          <button
-            type="button"
-            onClick={loadData}
-            className="text-xs font-semibold px-4 py-2 rounded-xl bg-orange-500 text-white inline-flex items-center gap-1.5 cursor-pointer"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            Refresh
-          </button>
+          <div className="flex items-center justify-center gap-2 pt-1">
+            <button
+              type="button"
+              onClick={loadData}
+              className="text-xs font-semibold px-3 py-2 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 inline-flex items-center gap-1.5 cursor-pointer"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              Refresh
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent('tesma:switch-tab', { detail: { tab: 'profile' } }));
+                setTimeout(() => {
+                  window.dispatchEvent(new CustomEvent('tesma:open-admin-modal'));
+                }, 50);
+              }}
+              className="text-xs font-semibold px-4 py-2 rounded-xl bg-orange-500 text-white hover:bg-orange-600 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+            >
+              <Database className="w-3.5 h-3.5" />
+              Admin Console / Seed Data
+            </button>
+          </div>
         </div>
       ) : (
         <AnimatePresence mode="wait">

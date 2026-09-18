@@ -29,6 +29,14 @@ export default function App() {
     }
   }, [darkMode]);
 
+  useEffect(() => {
+    const handleSwitchTab = (e: any) => {
+      if (e.detail?.tab) setActiveTab(e.detail.tab);
+    };
+    window.addEventListener('tesma:switch-tab', handleSwitchTab);
+    return () => window.removeEventListener('tesma:switch-tab', handleSwitchTab);
+  }, []);
+
   const toggleDarkMode = () => {
     setDarkMode((prev) => !prev);
   };

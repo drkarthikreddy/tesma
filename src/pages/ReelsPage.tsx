@@ -171,14 +171,14 @@ export const ReelsPage: React.FC<ReelsPageProps> = ({ onExit }) => {
     return (
       <div className="flex flex-col items-center justify-center h-[100dvh] w-full bg-stone-50 dark:bg-stone-950 text-center px-4 space-y-4">
         <AlertCircle className="w-10 h-10 text-rose-500" />
-        <h3 className="font-bold text-stone-800 dark:text-stone-200">Connection Notice</h3>
+        <h3 className="font-bold text-stone-800 dark:text-stone-200">Cloudflare D1 Connection Notice</h3>
         <p className="text-xs text-stone-500 max-w-xs">{error}</p>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {onExit && (
             <button
               type="button"
               onClick={onExit}
-              className="text-xs font-semibold px-4 py-2 rounded-xl bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 cursor-pointer"
+              className="text-xs font-semibold px-3 py-2 rounded-xl bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 cursor-pointer"
             >
               Exit
             </button>
@@ -186,9 +186,22 @@ export const ReelsPage: React.FC<ReelsPageProps> = ({ onExit }) => {
           <button
             type="button"
             onClick={fetchReels}
-            className="text-xs font-semibold px-4 py-2 rounded-xl bg-orange-500 text-white cursor-pointer"
+            className="text-xs font-semibold px-3 py-2 rounded-xl bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 cursor-pointer"
           >
             Retry
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (onExit) onExit();
+              window.dispatchEvent(new CustomEvent('tesma:switch-tab', { detail: { tab: 'profile' } }));
+              setTimeout(() => {
+                window.dispatchEvent(new CustomEvent('tesma:open-admin-modal'));
+              }, 60);
+            }}
+            className="text-xs font-semibold px-4 py-2 rounded-xl bg-orange-500 text-white cursor-pointer shadow-xs"
+          >
+            Configure D1
           </button>
         </div>
       </div>
@@ -199,26 +212,32 @@ export const ReelsPage: React.FC<ReelsPageProps> = ({ onExit }) => {
     return (
       <div className="flex flex-col items-center justify-center h-[100dvh] w-full bg-stone-50 dark:bg-stone-950 text-center px-4 space-y-4">
         <Database className="w-10 h-10 text-stone-400" />
-        <h3 className="font-bold text-stone-800 dark:text-stone-200">No Questions Available</h3>
+        <h3 className="font-bold text-stone-800 dark:text-stone-200">No Questions in Cloudflare D1</h3>
         <p className="text-xs text-stone-500 max-w-xs">
-          No questions found. Upload questions using the Admin Dashboard in Profile.
+          No questions found in tesma-db. Open the Admin Console to seed medical questions or upload batches.
         </p>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {onExit && (
             <button
               type="button"
               onClick={onExit}
-              className="text-xs font-semibold px-4 py-2 rounded-xl bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 cursor-pointer"
+              className="text-xs font-semibold px-3 py-2 rounded-xl bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 cursor-pointer"
             >
               Back to Home
             </button>
           )}
           <button
             type="button"
-            onClick={fetchReels}
-            className="text-xs font-semibold px-4 py-2 rounded-xl bg-orange-500 text-white cursor-pointer"
+            onClick={() => {
+              if (onExit) onExit();
+              window.dispatchEvent(new CustomEvent('tesma:switch-tab', { detail: { tab: 'profile' } }));
+              setTimeout(() => {
+                window.dispatchEvent(new CustomEvent('tesma:open-admin-modal'));
+              }, 60);
+            }}
+            className="text-xs font-semibold px-4 py-2 rounded-xl bg-orange-500 text-white cursor-pointer shadow-xs"
           >
-            Refresh
+            Admin Console / Seed
           </button>
         </div>
       </div>

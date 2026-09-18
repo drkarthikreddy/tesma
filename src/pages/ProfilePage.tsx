@@ -22,6 +22,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ darkMode, onToggleDark
   const [autoNext, setAutoNext] = useState(false);
   const [showAdminModal, setShowAdminModal] = useState(false);
 
+  React.useEffect(() => {
+    const handleOpen = () => setShowAdminModal(true);
+    window.addEventListener('tesma:open-admin-modal', handleOpen);
+    return () => window.removeEventListener('tesma:open-admin-modal', handleOpen);
+  }, []);
+
   return (
     <motion.main
       id="profile-page-container"
